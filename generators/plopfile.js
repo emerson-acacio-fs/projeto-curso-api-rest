@@ -7,12 +7,18 @@ module.exports = function (plop) {
       {
         type: 'input',
         name: 'route',
-        message: 'controller route',
+        message: 'Enter the new route: ',
       },
       {
-        type: 'input',
+        type: 'list',
         name: 'type',
-        message: 'controller type',
+        message: 'Select the request type: ',
+        choices: [
+          { name: 'GET', value: 'get', checked: true },
+          { name: 'POST', value: 'post' },
+          { name: 'DELETE', value: 'delete' },
+          { name: 'PUT', value: 'put' },
+        ],
       },
     ],
     actions: () => {
@@ -20,7 +26,8 @@ module.exports = function (plop) {
         {
           type: 'modify',
           path: '../src/shared/http/routes/index.ts',
-          pattern: /(\/\/--- ADD NEW ROUTE ---)/gi,
+          pattern:
+            /(\/\/--- ADD NEW ROUTE --- tag used in plop.js DON'T REMOVE THIS LINE)/gi,
           templateFile: 'templates/part.js.hbs',
         },
       ];
