@@ -1,11 +1,8 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
+import { productRouter } from 'modules/products/routes/products.routes';
 
 const routes = Router();
 
-routes.get('/', (req: Request, res: Response) => {
-  res.json({ message: 'Hello Dev!' });
-});
-
-//--- ADD NEW ROUTE --- tag used in plop.js DON'T REMOVE THIS LINE
+routes.use('/products', productRouter);
 
 export { routes };
