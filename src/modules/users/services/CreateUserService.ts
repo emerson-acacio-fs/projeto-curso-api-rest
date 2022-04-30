@@ -18,9 +18,9 @@ export default class CreateUserService {
     if (emailExists) {
       throw new AppError('There is already a user with this email :(');
     }
-    console.log('oi');
+
     const hashedPassword = await hash(password, 8);
-    console.log('oi2');
+
     const user = userRepository.create({
       name,
       email,
