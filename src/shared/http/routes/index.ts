@@ -2,6 +2,7 @@ import { uploadConfig } from 'config/upload';
 import { Router, static as staticDir } from 'express';
 import { productRouter } from 'modules/products/routes/products.routes';
 import { passwordRouter } from 'modules/users/routes/password.routes';
+import { profileRouter } from 'modules/users/routes/profile.routes';
 import { sessionRouter } from 'modules/users/routes/session.routes';
 import { userRouter } from 'modules/users/routes/users.routes';
 
@@ -12,5 +13,6 @@ routes.use('/users', userRouter);
 routes.use('/session', sessionRouter);
 routes.use('/password', passwordRouter);
 routes.use('/files', staticDir(uploadConfig.directory));
+routes.use('/profile', profileRouter);
 
 export { routes };
