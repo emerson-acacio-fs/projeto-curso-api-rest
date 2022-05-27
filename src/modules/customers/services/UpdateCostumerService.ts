@@ -1,4 +1,3 @@
-import { compare, hash } from 'bcryptjs';
 import { AppError } from 'shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import Customer from '../typeorm/entities/Customer';
