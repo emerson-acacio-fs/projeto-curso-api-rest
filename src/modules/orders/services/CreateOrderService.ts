@@ -1,5 +1,6 @@
 import { CustomersRepository } from 'modules/customers/typeorm/repositories/CustomersRepository';
 import { ProductRepository } from 'modules/products/typeorm/repositories/ProductRepository';
+import { RedisCache } from 'shared/cahce/RedisCache';
 import { AppError } from 'shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import Order from '../typeorm/entities/Order';
@@ -77,6 +78,8 @@ export default class CreateOrderService {
         product.quantity,
     }));
 
+    const redisCache = new RedisCache();
+    await redisCache.invalidate('api-vendas-PRODUCT_LIST');
     await productsRepository.save(updatedProductQuantity);
 
     return order;
