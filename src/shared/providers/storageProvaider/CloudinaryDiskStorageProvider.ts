@@ -16,14 +16,11 @@ export class CloudinaryDiskStorageProvider {
 
     await fs.promises.unlink(originalPath);
 
-    return response.url;
+    return `${response.public_id}.${response.format}`;
   }
   public async deleteFile(file: string): Promise<void> {
     try {
-      const splitFile = file.split('/');
-      const lastIndexFile = splitFile.length - 1;
-      const public_id = splitFile[lastIndexFile].replace(/\.[^/.]+$/, '');
-
+      const public_id = file.replace(/\.[^/.]+$/, '');
       await cloudinary.uploader.destroy(public_id);
     } catch {
       return;

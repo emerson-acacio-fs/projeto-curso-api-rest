@@ -1,4 +1,5 @@
 import { Exclude, Expose } from 'class-transformer';
+import { uploadConfig } from 'config/upload';
 import {
   Column,
   CreateDateColumn,
@@ -26,8 +27,14 @@ export default class User {
   updated_at: Date;
   @Expose({ name: 'avatar_url' })
   getAvatarUrl(): string | null {
-    return !this.avatar
-      ? null
-      : `${process.env.APP_API_URL}/files/${this.avatar}`;
+    if (uploadConfig.driver === 'Cloudinary') {
+      return !this.avatar
+        ? null
+        : `${process.env.CLOUDINARY_STORAGE_URL}/${this.avatar}`;
+    } else {
+      return !this.avatar
+        ? null
+        : `${process.env.APP_API_URL}/files/${this.avatar}`;
+    }
   }
 }
