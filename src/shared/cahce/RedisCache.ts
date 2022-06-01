@@ -1,16 +1,13 @@
 import { cacheConfig } from 'config/cache';
-import Redis, { Redis as RedisClient } from 'ioredis';
+import Redis from 'ioredis';
 
+const client = new Redis(cacheConfig.config.redis);
 export class RedisCache {
-  private client: RedisClient;
-  constructor() {
-    this.client = new Redis(cacheConfig.config.redis);
-  }
   public async save(key: string, value: any): Promise<void> {
-    await this.client.set(key, JSON.stringify(value));
+    await client.set(key, JSON.stringify(value));
   }
   public async record<T>(key: string): Promise<T | null> {
-    const data = await this.client.get(key);
+    const data = await client.get(key);
     if (!data) {
       return null;
     }
@@ -18,6 +15,6 @@ export class RedisCache {
     return parsedData;
   }
   public async invalidate(key: string): Promise<void> {
-    await this.client.del(key);
+    await client.del(key);
   }
 }
