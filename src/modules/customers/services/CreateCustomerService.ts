@@ -1,4 +1,3 @@
-import { hash } from 'bcryptjs';
 import { AppError } from 'shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import Customer from '../typeorm/entities/Customer';
@@ -18,7 +17,7 @@ export default class CreateCustomerService {
       throw new AppError('There is already a user with this customer :(');
     }
 
-    const customer = customerRepository.create({
+    const customer = await customerRepository.create({
       name,
       email,
     });
